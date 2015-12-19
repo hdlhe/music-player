@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <TabHost
+        android:id="@+id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <fragment
+                    android:id="@+id/artist_album"
+                    android:name="com.example.musicplayer.ArtistAlbumFragment"
+                    style="@style/TabHostItemLayout" />
+
+                <fragment
+                    android:id="@+id/album_songs"
+                    android:name="com.example.musicplayer.AlbumSongFragment"
+                    style="@style/TabHostItemLayout" />
+
+                <fragment
+                    android:id="@+id/play_list"
+                    android:name="com.example.musicplayer.PlayListFragment"
+                    style="@style/TabHostItemLayout" />
+
+                <fragment
+                    android:id="@+id/song"
+                    android:name="com.example.musicplayer.SongsFragment"
+                    style="@style/TabHostItemLayout" />
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>
