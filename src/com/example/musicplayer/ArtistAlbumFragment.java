@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,7 +30,7 @@ public class ArtistAlbumFragment extends Fragment {
 	private ExpandableListView mListView;
 	private ArtistAlbumListAdapter mAdapter;
 	private static Activity mActivity;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		if (DEBUG) {
@@ -123,9 +124,9 @@ public class ArtistAlbumFragment extends Fragment {
 
 		private ArtistAlbumFragment mFragment;
 		private QueryHandler mQueryHandler;
-		
+
 		private final String mUnknownAlbum;
-        private final BitmapDrawable mDefaultAlbumIcon;
+		private final BitmapDrawable mDefaultAlbumIcon;
 
 		static class ViewHolder {
 			TextView line1;
@@ -162,14 +163,16 @@ public class ArtistAlbumFragment extends Fragment {
 			mFragment = fragment;
 			mUnknownAlbum = context.getString(R.string.unknown_album_name);
 			Resources r = mActivity.getResources();
-            mDefaultAlbumIcon = (BitmapDrawable) r.getDrawable(R.drawable.albumart_mp_unknown_list);
-			
+			mDefaultAlbumIcon = (BitmapDrawable) r
+					.getDrawable(R.drawable.albumart_mp_unknown_list);
+
 			mQueryHandler = new QueryHandler(context.getContentResolver());
 		}
 
 		@Override
 		protected Cursor getChildrenCursor(Cursor groupCursor) {
-			long id = groupCursor.getLong(groupCursor.getColumnIndexOrThrow(MediaStore.Audio.Artists._ID));
+			long id = groupCursor.getLong(groupCursor
+					.getColumnIndexOrThrow(MediaStore.Audio.Artists._ID));
 			String[] cols = new String[] { MediaStore.Audio.Albums._ID,
 					MediaStore.Audio.Albums.ALBUM,
 					MediaStore.Audio.Albums.NUMBER_OF_SONGS,
@@ -218,7 +221,7 @@ public class ArtistAlbumFragment extends Fragment {
 			vh.line2 = (TextView) v.findViewById(R.id.line2);
 			vh.play_indicator = (ImageView) v.findViewById(R.id.play_indicator);
 			vh.icon = (ImageView) v.findViewById(R.id.icon);
-			// vh.icon.setBackgroundDrawable(background);
+			//vh.icon.setBackgroundDrawable(background);
 			vh.icon.setPadding(0, 0, 1, 0);
 			v.setTag(vh);
 
@@ -307,20 +310,20 @@ public class ArtistAlbumFragment extends Fragment {
 			// }
 			// vh.line2.setText(builder.toString());
 			//
-			 ImageView iv = vh.icon;
-			// // We don't actually need the path to the thumbnail file,
-			// // we just use it to see if there is album art or not
-			// String art = cursor.getString(cursor
-			// .getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM_ART));
-			// if (unknown || art == null || art.length() == 0) {
-			 iv.setBackgroundDrawable(mDefaultAlbumIcon);
-			// iv.setImageDrawable(null);
-			// } else {
-			// long artIndex = cursor.getLong(0);
-			// Drawable d = MusicUtils.getCachedArtwork(context, artIndex,
-			// mDefaultAlbumIcon);
-			// iv.setImageDrawable(d);
-			// }
+			ImageView iv = vh.icon;
+			// We don't actually need the path to the thumbnail file,
+			// we just use it to see if there is album art or not
+			String art = cursor.getString(cursor
+					.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM_ART));
+			if (unknown || art == null || art.length() == 0) {
+				iv.setBackgroundDrawable(mDefaultAlbumIcon);
+				iv.setImageDrawable(null);
+			} else {
+				long artIndex = cursor.getLong(0);
+				Drawable d = MusicUtils.getCachedArtwork(context, artIndex,
+						mDefaultAlbumIcon);
+				iv.setImageDrawable(d);
+			}
 
 			// long currentalbumid = MusicUtils.getCurrentAlbumId();
 			// long aid = cursor.getLong(0);
