@@ -221,7 +221,7 @@ public class ArtistAlbumFragment extends Fragment {
 			vh.line2 = (TextView) v.findViewById(R.id.line2);
 			vh.play_indicator = (ImageView) v.findViewById(R.id.play_indicator);
 			vh.icon = (ImageView) v.findViewById(R.id.icon);
-			//vh.icon.setBackgroundDrawable(background);
+			vh.icon.setBackgroundDrawable(mDefaultAlbumIcon);
 			vh.icon.setPadding(0, 0, 1, 0);
 			v.setTag(vh);
 
